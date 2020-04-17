@@ -1,7 +1,7 @@
 <%- include('header'); -%>
 
     <div class="box" id="heading">
-      <h1><%= kindOfDay %></h1>
+      <h1><%= listTitle %></h1>
     </div>
 
     <div class="box">
@@ -12,13 +12,14 @@
             <input type="checkbox" name="deleteItem" value="<%= item._id %>" onchange="this.form.submit()">
             <p> <%= item.name %> </p>
           </div>
+          <input type="hidden" name="listName" value="<%= listTitle %>"></input>
 
         </form>
       <% }) %>
 
       <form class="item" action="/" method="post">
         <input type="text" name="newItem" placeholder="Add a task" autocomplete="off">
-        <button type="submit" name="addItem">+</button>
+        <button type="submit" name="list" value="<%= listTitle %>">+</button>
       </form>
     </div>
 
