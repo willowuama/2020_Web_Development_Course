@@ -13,7 +13,7 @@ const port = 3000;
 
 
 // Database
-mongoose.connect("mongodb://localhost:27017/todolistDB", {useNewUrlParser: true});
+mongoose.connect("mongodb://localhost:27017/todolistDB", {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
 
 const itemsSchema = new Schema({
   name: {
@@ -80,6 +80,22 @@ app.post('/', (req,res) =>{
 
   newItem.save();
 
+
+  res.redirect("/");
+})
+
+// Delete item from Page
+app.post("/delete", (req, res) => {
+  console.log("Item deleted");
+  const deleteId = req.body.deleteItem;
+
+  Item.findByIdAndRemove(deleteId, (err, item) =>{
+    if(err){
+      console.log(err);
+    }else{
+      console.log(`${item} removed from the db`);
+    }
+  })
 
   res.redirect("/");
 })
