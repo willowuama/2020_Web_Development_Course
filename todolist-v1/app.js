@@ -4,6 +4,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const _ = require("lodash");
+require('dotenv').config();
 const date = require(__dirname + "/date.js");
 const Schema = mongoose.Schema;
 
@@ -14,7 +15,8 @@ const port = 3000;
 
 
 // Database
-mongoose.connect("mongodb://localhost:27017/todolistDB", {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
+const dbURL = `mongodb+srv://${process.env.DBUSER}:${process.env.DBPASS}@cluster1-ajym2.mongodb.net/todolistDB`;
+mongoose.connect(dbURL, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
 
 // Schemas
 const itemsSchema = new Schema({
